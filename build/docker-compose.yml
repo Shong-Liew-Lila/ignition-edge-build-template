@@ -26,7 +26,7 @@ services:
       - /home/ubuntu/docker-volumes/ignition_data/custom-lib:/usr/local/bin/ignition/data/custom-lib
       - /home/ubuntu/docker-volumes/ignition_data/config/ignition.conf:/usr/local/bin/ignition/data/ignition.conf
       # - /home/ubuntu/docker-volumes/ignition_data/db:/usr/local/bin/ignition/data/db
-      - /home/ubuntu/docker-volumes/ignition_user_modules:/usr/local/bin/ignition/user-lib/modules # add new modules by default
+      # - /home/ubuntu/docker-volumes/ignition_user_modules:/usr/local/bin/ignition/user-lib/modules # add new modules by default
     environment:
       - ACCEPT_IGNITION_EULA=Y
       - IGNITION_EDITION=edge
