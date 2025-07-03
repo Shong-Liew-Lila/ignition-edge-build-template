@@ -44,6 +44,8 @@ services:
       - ../mosquitto/config:/mosquitto/config
       - ../mosquitto/data:/mosquitto/data
       - ../mosquitto/log:/mosquitto/log
+    networks:
+      - web
 networks:
   web:
     external: true
