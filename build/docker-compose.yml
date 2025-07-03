@@ -1,0 +1,52 @@
+version: "3.8"
+
+services:
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: unless-stopped
+    ports:
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+    networks:
+      - web
+
+  ignition:
+    image: inductiveautomation/ignition:latest
+    container_name: ignition_gateway
+    ports:
+      - "8088:8088"
+      - "8060:8060"
+      - "8043:8043"
+      - "62541:62541"
+    volumes:
+      # - /home/ubuntu/docker-volumes/ignition_data/projects:/usr/local/bin/ignition/data/projects
+      - /home/ubuntu/docker-volumes/ignition_data/custom-lib:/usr/local/bin/ignition/data/custom-lib
+      - /home/ubuntu/docker-volumes/ignition_data/config/ignition.conf:/usr/local/bin/ignition/data/ignition.conf
+      # - /home/ubuntu/docker-volumes/ignition_data/db:/usr/local/bin/ignition/data/db
+      - /home/ubuntu/docker-volumes/ignition_user_modules:/usr/local/bin/ignition/user-lib/modules # add new modules by default
+    environment:
+      - ACCEPT_IGNITION_EULA=Y
+      - IGNITION_EDITION=edge
+      - GATEWAY_MODULES_ENABLED=modbus-driver-v2,opc-ua,perspective,tag-historian,udp-tcp-drivers,web-developer
+    restart: unless-stopped
+    networks:
+      - web
+  mosquitto:
+    image: eclipse-mosquitto:latest
+    container_name: mosquitto
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+    volumes:
+      - ../mosquitto/config:/mosquitto/config
+      - ../mosquitto/data:/mosquitto/data
+      - ../mosquitto/log:/mosquitto/log
+networks:
+  web:
+    external: true
+
+volumes:
+  portainer_data:
