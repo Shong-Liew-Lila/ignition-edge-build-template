@@ -39,13 +39,11 @@ services:
     container_name: mosquitto
     restart: unless-stopped
     ports:
-      - "1885:1883"
+      - "1883:1883"
     volumes:
       - ../mosquitto/config/mosquitto.conf:/mosquitto/mosquitto.conf
       - ../mosquitto/config/conf.d:/mosquitto/conf.d
       - ../mosquitto/config/passwd:/mosquitto/passwd
-    networks:
-      - web
 networks:
   web:
     external: true
