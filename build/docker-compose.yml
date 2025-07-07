@@ -41,9 +41,9 @@ services:
     ports:
       - "1883:1883"
     volumes:
-      - ../mosquitto/config:/mosquitto/config
-      - ../mosquitto/data:/mosquitto/data
-      - ../mosquitto/log:/mosquitto/log
+      - ../mosquitto/mosquitto.conf:/mosquitto/mosquitto.conf
+      - ../mosquitto/config/conf.d:/mosquitto/conf.d
+      - ../mosquitto/passwd:/mosquitto/passwd
     networks:
       - web
 networks:
