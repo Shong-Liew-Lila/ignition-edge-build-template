@@ -44,6 +44,8 @@ services:
       - ../mosquitto/config/mosquitto.conf:/mosquitto/mosquitto.conf
       - ../mosquitto/config/conf.d:/mosquitto/conf.d
       - ../mosquitto/config/passwd:/mosquitto/passwd
+    networks:
+      - web
 networks:
   web:
     external: true
