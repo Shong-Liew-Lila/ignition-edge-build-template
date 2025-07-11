@@ -34,18 +34,19 @@ services:
     restart: unless-stopped
     networks:
       - web
-  mosquitto:
-    image: eclipse-mosquitto:latest
-    container_name: mosquitto
+  emqx:
+    image: emqx/emqx:latest
+    container_name: emqx
     restart: unless-stopped
     ports:
-      - "1883:1883"
-    volumes:
-      - ../mosquitto/config/mosquitto.conf:/mosquitto/mosquitto.conf
-      - ../mosquitto/config/conf.d:/mosquitto/conf.d
-      - ../mosquitto/config/passwd:/mosquitto/passwd
+      - "1885:1883"
+      - "8883:8883"
+      - "18083:18083"
     networks:
       - web
+    environment:
+      - EMQX_NAME=emqx
+      - EMQX_HOST=mqtt.mycompany.com
 networks:
   web:
     external: true
